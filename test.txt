@@ -8,7 +8,7 @@ Success case:
     "pageCount": 100,
     "readPage": 25,
     "finished": false,
-    "reading": false
+    "reading": true
 }
 {
     "name": "Buku B",
@@ -18,7 +18,7 @@ Success case:
     "publisher": "Dicoding Indonesia",
     "pageCount": 100,
     "readPage": 25,
-    "finished": false,
+    "finished": true,
     "reading": false
 }
 {
@@ -29,8 +29,8 @@ Success case:
     "publisher": "Dicoding Indonesia",
     "pageCount": 100,
     "readPage": 25,
-    "finished": false,
-    "reading": false
+    "finished": true,
+    "reading": true
 }
 {
     "name": "Buku V",

@@ -1,20 +1,72 @@
 const { nanoid } = require('nanoid');
+const _ = require('lodash');
 const books = require('./books');
 
-// 1. Menampilkan seluruh buku
+// 1. Menampilkan seluruh buku dan by query
 const getAllBooksHandler = (request, h) => {
-    let allBooks = books.map((book) => {
-        return {
-            id: book.id,
-            name: book.name,
-            publisher: book.publisher
+    let getBooks = _.cloneDeep(books);
+
+    const {name, reading, finished} = request.query;
+    let bookByName = [];
+    let bookByReading = [];
+    let bookByFinished = [];
+    if(name){
+        bookByName = getBooks.filter((book) => book.name.toLowerCase().includes(name.toLowerCase()));
+
+        if(bookByName.length){
+            getBookByName = bookByName.map((book) => {
+                return {
+                    id: book.id,
+                    name: book.name,
+                    publisher: book.publisher
+                }
+            })
         }
-    })
+    }
+    if(reading){
+        if(reading === '1'){
+            bookByReading = getBooks.filter((book) => book.reading === true);
+        }else if(reading === '0'){
+            bookByReading = getBooks.filter((book) => book.reading === false);
+        }else{
+            bookByReading = _.cloneDeep(getBooks);
+        }
+    }
+    if(finished){
+        if(finished === '1'){
+            bookByFinished = getBooks.filter((book) => book.finished === true);
+        }else if(finished === '0'){
+            bookByFinished = getBooks.filter((book) => book.finished === false);
+        }else{
+            bookByFinished = _.cloneDeep(getBooks);
+        }
+    }
+
+    console.log(getBooks.length, bookByName.length, bookByReading.length, bookByFinished.length);
+
+    if(name){
+        getBooks = _.cloneDeep(bookByName);
+        if(reading){
+            getBooks = _.intersection(bookByName, bookByReading);
+        }else if(finished){
+            getBooks = _.intersection(bookByName, bookByFinished);
+        }
+    }else if(reading){
+        getBooks = _.cloneDeep(bookByReading);
+    }else if(finished){
+        getBooks = _.cloneDeep(bookByFinished);
+    }
 
     return h.response({
         status: 'success',
         data: {
-            books: allBooks,
+            books: getBooks.map((book) => {
+                return {  
+                    id: book.id,
+                    name: book.name,
+                    publisher: book.publisher
+                }
+            }),
         }
     }).code(200);
 };
@@ -50,7 +102,6 @@ const addBookHandler = (request, h) => {
         const id = nanoid(16);
         const createdAt = new Date().toISOString();
         const updateAt = createdAt;
-        console.log(updateAt);
 
         books.push({
             id,
@@ -61,6 +112,7 @@ const addBookHandler = (request, h) => {
             publisher,
             pageCount,
             readPage,
+            finished,
             reading,
             createdAt,
             updateAt,
@@ -187,10 +239,11 @@ const deleteBookByIdHandler = (request, h) =>{
     }
 };
 
+
 module.exports = {
     getAllBooksHandler,
     addBookHandler,
     getBookByIdHandler,
     editBookByIdHandler,
-    deleteBookByIdHandler
+    deleteBookByIdHandler   
 }
