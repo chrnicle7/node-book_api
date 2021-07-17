@@ -1,0 +1,81 @@
+Success case:
+{
+    "name": "Buku A",
+    "year": 2010,
+    "author": "John Doe",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 25,
+    "finished": false,
+    "reading": false
+}
+{
+    "name": "Buku B",
+    "year": 2013,
+    "author": "John F. Kennedy",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 25,
+    "finished": false,
+    "reading": false
+}
+{
+    "name": "Buku C",
+    "year": 1999,
+    "author": "John Lenon",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 25,
+    "finished": false,
+    "reading": false
+}
+{
+    "name": "Buku V",
+    "year": 2012,
+    "author": "John DoeS",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 25,
+    "finished": false,
+    "reading": false
+}
+
+Name failed case:
+{
+    "name": "",
+    "year": 2010,
+    "author": "John Doe",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 25,
+    "finished": false,
+    "reading": false
+}
+{
+    "year": 2010,
+    "author": "John Doe",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 25,
+    "finished": false,
+    "reading": false
+}
+
+Page failed:
+{
+    "name": "Test Book",
+    "year": 2010,
+    "author": "John Doe",
+    "summary": "Lorem ipsum dolor sit amet",
+    "publisher": "Dicoding Indonesia",
+    "pageCount": 100,
+    "readPage": 125,
+    "finished": false,
+    "reading": false
+}
