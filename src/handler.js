@@ -11,14 +11,12 @@ const getAllBooksHandler = (request, h) => {
         }
     })
 
-    const response = h.response({
+    return h.response({
         status: 'success',
         data: {
             books: allBooks,
         }
-    });
-    response.code(200);
-    return response;
+    }).code(200);
 };
 
 // 2. Menambahkan buku
@@ -37,20 +35,16 @@ const addBookHandler = (request, h) => {
         } = JSON.parse(request.payload);
     
         if(!name){
-            const response = h.response({
+            return h.response({
                 status: 'fail',
                 message: 'Gagal menambahkan buku. Mohon isi nama buku'
-            });
-            response.code(400);
-            return response;
+            }).code(400);
         }
         if(readPage > pageCount){
-            const response = h.response({
+            return h.response({
                 status: 'fail',
                 message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount'
-            });
-            response.code(400);
-            return response;
+            }).code(400);
         }
 
         const id = nanoid(16);
@@ -74,24 +68,20 @@ const addBookHandler = (request, h) => {
 
         const isSuccess = books.filter((book) => book.id === id).length > 0;
         if(isSuccess){
-            const response = h.response({
+            return h.response({
                 status: 'success',
                 message: 'Buku berhasil ditambahkan',
                 data: {
                     bookId: id
                 }
-            });
-            response.code(201);
-            return response;
+            }).code(201);
         }
     }
 
-    const response = h.response({
+    return h.response({
         status: 'fail',
         message: 'Buku gagal ditambahkan'
-    });
-    response.code(500);
-    return response;
+    }).code(500);
 };
 
 // 3. Menampilkan detail buku
@@ -100,20 +90,16 @@ const getBookByIdHandler = (request, h) => {
     const book = books.filter((book) => book.id === bookId)[0];
 
     if(book){
-        const response = h.response({
+        return h.response({
             status: 'success',
             data: book
-        });
-        response.code(200);
-        return response;
+        }).code(200);
     }
 
-    const response = h.response({
+    return h.response({
         status: 'fail',
         message: 'Buku tidak ditemukan'
-    });
-    response.code(404);
-    return response;
+    }).code(404);
 };
 
 // 4. Mengubah data buku
@@ -132,20 +118,16 @@ const editBookByIdHandler = (request, h) => {
         } = JSON.parse(request.payload);
 
         if(!name){
-            const response = h.response({
+            return h.response({
                 status: 'fail',
                 message: 'Gagal menambahkan buku. Mohon isi nama buku'
-            });
-            response.code(400);
-            return response;
+            }).code(400);
         }
         if(readPage > pageCount){
-            const response = h.response({
+            return h.response({
                 status: 'fail',
                 message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount'
-            });
-            response.code(400);
-            return response;
+            }).code(400);
         }
         
         const index = books.findIndex((book) => book.id === bookId);
@@ -164,28 +146,25 @@ const editBookByIdHandler = (request, h) => {
                 reading,
             };
 
-            const response = h.response({
+            return h.response({
                 status: 'success',
                 message: 'Buku berhasil diperbarui'
-            });
-            response.code(200);
-            return response;
+            }).code(200);
+        
         }else{
-            const response = h.response({
+            return h.response({
                 status: 'fail',
                 message: 'Buku tidak ditemukan'
-            });
-            response.code(404);
-            return response;
+            }).code(404);
+        
         }
     }
     
-    const response = h.response({
+    return h.response({
         status: 'fail',
         message: 'Buku gagal diedit'
-    });
-    response.code(500);
-    return response;
+    }).code(500);
+
 };
 
 // 4. Menghapus Buku
@@ -196,19 +175,15 @@ const deleteBookByIdHandler = (request, h) =>{
     if(index !== -1){
         books.splice(index, 1);
 
-        const response = h.response({
+        return h.response({
             status: 'success',
             message: 'Buku berhasil dihapus'
-        });
-        response.code(200);
-        return response;
+        }).code(200);
     }else{
-        const response = h.response({
+        return h.response({
             status: 'fail',
             message: 'Buku tidak ditemukan'
-        });
-        response.code(404);
-        return response;
+        }).code(404);
     }
 };
 
