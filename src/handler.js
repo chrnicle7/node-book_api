@@ -96,6 +96,12 @@ const addBookHandler = (request, h) => {
                 message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount'
             }).code(400);
         }
+        if(readPage < 0 || pageCount < 0){
+            return h.response({
+                status: 'fail',
+                message: 'Buku gagal ditambahkan'
+            }).code(500);
+        }
 
         const id = nanoid(16);
         const createdAt = new Date().toISOString();
@@ -204,7 +210,7 @@ const editBookByIdHandler = (request, h) => {
         }else{
             return h.response({
                 status: 'fail',
-                message: 'Buku tidak ditemukan'
+                message: 'Gagal memperbarui buku. Id tidak ditemukan'
             }).code(404);
         
         }
@@ -232,7 +238,7 @@ const deleteBookByIdHandler = (request, h) =>{
     }else{
         return h.response({
             status: 'fail',
-            message: 'Buku tidak ditemukan'
+            message: 'Buku gagal dihapus. Id tidak ditemukan'
         }).code(404);
     }
 };
