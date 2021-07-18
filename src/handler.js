@@ -42,6 +42,9 @@ const getAllBooksHandler = (request, h) => {
         }
     }
 
+    // Untuk menangani
+    //  http://localhost:<port>/books?name=<nama>&finished=<0/1>
+    //  http://localhost:<port>/books?name=<nama>&reading=<0/1>
     if(name){
         getBooks = _.cloneDeep(bookByName);
         if(reading){
