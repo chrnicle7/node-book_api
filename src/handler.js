@@ -42,8 +42,6 @@ const getAllBooksHandler = (request, h) => {
         }
     }
 
-    console.log(getBooks.length, bookByName.length, bookByReading.length, bookByFinished.length);
-
     if(name){
         getBooks = _.cloneDeep(bookByName);
         if(reading){
