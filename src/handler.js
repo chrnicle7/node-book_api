@@ -85,7 +85,7 @@ const addBookHandler = (request, h) => {
             readPage,
             finished,
             reading,
-        } = JSON.parse(request.payload);
+        } = request.payload;
     
         if(!name){
             return h.response({
@@ -174,7 +174,7 @@ const editBookByIdHandler = (request, h) => {
             pageCount,
             readPage,
             reading,
-        } = JSON.parse(request.payload);
+        } = request.payload;
 
         if(!name){
             return h.response({
